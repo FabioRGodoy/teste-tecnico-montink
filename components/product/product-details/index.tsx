@@ -10,6 +10,7 @@ import { Heart, ShoppingBag } from "lucide-react";
 import { RatingStars } from "@/components/ui/rating-stars";
 import { Button } from "@/components/ui/button";
 import { InfoGrid } from "@/components/ui/info-grid";
+import { BackLink } from "@/components/ui/back-link";
 
 export function ProductDetails({ product }: ProductDetailsProps) {
   const [selectedImage, setSelectedImage] = useLocalStorage<number>(
@@ -42,6 +43,9 @@ export function ProductDetails({ product }: ProductDetailsProps) {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <div className="mb-6">
+        <BackLink href="/" />
+      </div>
       <div className="flex flex-col md:flex-row gap-12">
         <div className="md:w-1/2">
           <ImageGallery
