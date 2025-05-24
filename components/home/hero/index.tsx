@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { fetchAllProducts } from "@/lib/api";
 import { Product } from "@/types/product.types";
+import { stringToSlug } from "@/utils/common";
 import Link from "next/link";
 
 export const HomeHero = async () => {
@@ -14,7 +15,10 @@ export const HomeHero = async () => {
       </p>
       <div className="flex flex-col md:flex-row items-center justify-center flex-wrap gap-3">
         {products.map((product, index) => (
-          <Link href="/product/1" key={product.name + "-" + index}>
+          <Link
+            href={`/product/${product.id}/${stringToSlug(product.name)}`}
+            key={product.name + "-" + index}
+          >
             <Button
               className="py-3 px-6 bg-black text-white rounded-xl hover:bg-gray-800 transition disabled:bg-gray-400 disabled:cursor-not-allowed min-h-20 cursor-pointer"
               variant="primary"
