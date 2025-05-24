@@ -1,18 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { Product } from "@/types/product.types";
-import { promises as fs } from "fs";
-import path from "path";
+import { readProducts } from "@/lib/api";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
     const { id } = await params;
 
-    const jsonPath = path.join(process.cwd(), "mock", "products.json");
-    const jsonData = await fs.readFile(jsonPath, "utf-8");
-    const products: Product[] = JSON.parse(jsonData);
+    const products: Product[] = await readProducts();
 
     const product = products.find((p) => p.id === id);
 

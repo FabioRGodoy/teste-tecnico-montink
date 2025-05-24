@@ -2,6 +2,16 @@ import { Product } from "@/types/product.types";
 import { redirect } from "next/navigation";
 import slugify from "slugify";
 
+export const stringToSlug = (str: string) => {
+  if (!str) return "";
+
+  return slugify(str, {
+    lower: true,
+    trim: true,
+    strict: true,
+  });
+};
+
 export const ensuresTheCorrectSlug = ({
   product,
   slugPart,
@@ -9,11 +19,7 @@ export const ensuresTheCorrectSlug = ({
   product: Product;
   slugPart: string;
 }) => {
-  const expectedSlug = slugify(product.name, {
-    lower: true,
-    trim: true,
-    strict: true,
-  });
+  const expectedSlug = stringToSlug(product.name);
 
   if (slugPart !== expectedSlug) {
     return redirect(`/product/${product.id}/${expectedSlug}`);
